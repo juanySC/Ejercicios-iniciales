@@ -14,12 +14,18 @@ while True:
 
              #recorre los conjuntos que ingreso el usuario
             for i in range(entradaConjunto):
-                nombre = input(f"\nIngrese el nombre del conjunto #{i+1}: ")
+                nombre = input(f"\nIngrese el nombre del conjunto ej(A,B) #{i+1}: ")
                  #llamo al 'nombre' para que sea mas facil de visualizar
-                entradaElementos = input(f"Ingrese los elementos del conjunto '{nombre}', separados por comas (,): ")
+                 
+                 #si esta en el rango entra
+                
+                entradaElementos = input(f"Ingrese los elementos del conjunto '{nombre}', separados por comas (,) (max 15): ")
                 #set es un conjunto de elementos unicos y no ordenados
-                conjunto = set(e.strip() for e in entradaElementos.split(','))
+                elementos = set(x.strip() for x in entradaElementos.split(','))
+               
+                conjunto = set(elementos)
                 conjuntos[nombre] = conjunto
+           
 
             #imprime en pantalla los elementos ingresados
             print("\nConjuntos ingresados:")
@@ -35,16 +41,18 @@ while True:
             #strip() ayuda a eliminar espacios en blanco
             conjunto1 = input("\nIngrese el primer nombre: ").strip()
             conjunto2 = input("\nIngrese el segundo nombre: ").strip()
+            conjunto3 = input("\nIngrese el segundo nombre: ").strip()
 
             #Comparo si estos estan en la lista que dio anteriormente
             #el usuario
-            if conjunto1 not in conjuntos or conjunto2 not in conjuntos:
+            if conjunto1 not in conjuntos or conjunto2 not in conjuntos or conjunto3 not in conjuntos:
                 print("Uno o ambos nombres no están en la lista.")
                 sys.exit()
 
             
             conjunto_a = conjuntos[conjunto1]
             conjunto_b = conjuntos[conjunto2]
+            conjunto_c = conjuntos[conjunto3]
 
             #condiciones de conjuntos
             print("Opcion de operaciones en conjuntos para graficarlo")
@@ -57,19 +65,28 @@ while True:
             opcion = input("Ingrese la opción que desee: ")
 
             if opcion == "1":
-                resultado = conjunto_a | conjunto_b
+                resultado = conjunto_a | conjunto_b | conjunto_c
+                print("\n union")
+                print(resultado)
                 titulo = f"{conjunto1} ∩ {conjunto2}"
+                print()
             elif opcion == "2":
-                resultado = conjunto_a & conjunto_b
+                resultado = conjunto_a & conjunto_b & conjunto_c
+                print("\n intersección")
+                print(resultado)
                 titulo = f"{conjunto1} u {conjunto2}"
             elif opcion == "3":
                 print("Aun no se")
             elif opcion == "4":
                 resultado = conjunto_a - conjunto_b
                 titulo = f"{conjunto1} - {conjunto2}"
+                print("\n diferencia")
+                print(resultado)
             elif opcion == "5":
                 resultado = conjunto_a ^ conjunto_b
                 titulo = f"{conjunto1} df {conjunto2}"
+                print("\n diferencia simetrica")
+                print(resultado)
             else: 
                 print("Opción no disponible")
 
@@ -84,15 +101,18 @@ while True:
             # Colores
             ROJO = (255, 0, 0, 120)
             AZUL = (0, 0, 255, 120)
+            VERDE = (0,255,0,120)
             BLANCO = (255, 255, 255)
             NEGRO = (0, 0, 0)
 
             # Superficies con transparencia
             circuloRojo = pygame.Surface((300, 300), pygame.SRCALPHA)
             circuloAzul = pygame.Surface((300, 300), pygame.SRCALPHA)
+            circuloVerde = pygame.Surface((300,300), pygame.SRCALPHA)
             #dibujo los conjuntos
             pygame.draw.circle(circuloRojo, ROJO, (150, 150), 100)
             pygame.draw.circle(circuloAzul, AZUL, (150, 150), 100)
+            pygame.draw.circle(circuloVerde, VERDE, (150,150),100)
 
             # Función para escribir texto en pantalla
             def escribirElementos(elementos, posInicial):
@@ -115,6 +135,7 @@ while True:
                 # Dibuja los círculos
                 pantalla.blit(circuloRojo, (150, 100))
                 pantalla.blit(circuloAzul, (250, 100))
+                pantalla.blit(circuloVerde,(200, 80))
 
                 # Dibuja las etiquetas
                 etiqueta1 = fuente.render(conjunto1, True, NEGRO)
