@@ -42,13 +42,36 @@ while True:
                 print("Uno o ambos nombres no están en la lista.")
                 sys.exit()
 
-            #condiciones de conjuntos
+            
             conjunto_a = conjuntos[conjunto1]
             conjunto_b = conjuntos[conjunto2]
-            interseccion = conjunto_a & conjunto_b
-            union = conjunto_a | conjunto_b
-            diferencia = conjunto_a - conjunto_b
-            difSimetrica = conjunto_a ^ conjunto_b
+
+            #condiciones de conjuntos
+            print("Opcion de operaciones en conjuntos para graficarlo")
+            print("1. Union")
+            print("2. Intersección")
+            print("3. Complemento")
+            print("4. Diferencia")
+            print("5. Diferencia simétrica")
+
+            opcion = input("Ingrese la opción que desee: ")
+
+            if opcion == "1":
+                resultado = conjunto_a | conjunto_b
+                titulo = f"{conjunto1} ∩ {conjunto2}"
+            elif opcion == "2":
+                resultado = conjunto_a & conjunto_b
+                titulo = f"{conjunto1} u {conjunto2}"
+            elif opcion == "3":
+                print("Aun no se")
+            elif opcion == "4":
+                resultado = conjunto_a - conjunto_b
+                titulo = f"{conjunto1} - {conjunto2}"
+            elif opcion == "5":
+                resultado = conjunto_a ^ conjunto_b
+                titulo = f"{conjunto1} df {conjunto2}"
+            else: 
+                print("Opción no disponible")
 
             #visualizar de manera grafica
             pygame.init()
@@ -100,9 +123,21 @@ while True:
                 pantalla.blit(etiqueta2, (370, 90))
 
                 # Dibuja los elementos
-                escribirElementos(conjunto_a - interseccion, (160, 120))   # Solo A
-                escribirElementos(conjunto_b - interseccion, (360, 120))   # Solo B
-                escribirElementos(interseccion, (260, 150))                # Intersección
+                    # Mostrar elementos según la operación
+                if opcion == "1":  # Union
+                    titulo = f"{conjunto1} ∪ {conjunto2}"
+                    escribirElementos(resultado, (260, 150))
+                  
+                elif opcion == "2":  # Interceccion
+                    escribirElementos(conjunto_a - resultado, (160, 120))
+                    escribirElementos(conjunto_b - resultado, (360, 120))
+                    escribirElementos(resultado, (260, 150))
+                elif opcion == "3":
+                    escribirElementos()
+                elif opcion == "4":  # Diferencia A - B
+                    escribirElementos(resultado, (160, 120))
+                elif opcion == "5":  # Diferencia simétrica
+                    escribirElementos(resultado, (260, 150))
 
                 pygame.display.flip()  # Actualizar pantalla
 
